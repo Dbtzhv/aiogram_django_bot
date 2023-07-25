@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Диаграмма</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .chart-container {
+            width: 600px;
+            height: 300px;
+            border: none; /* Убираем рамку */
+            padding: 10px;
+            box-sizing: border-box;
+            font-size: 0; /* Устанавливаем размер шрифта в 0 */
+        }
+
+        .chart-bar {
+            width: calc(100% / 12);
+            height: 100%;
+            background-color: #00b894; /* Замените этот цвет на нужный вам цвет */
+            display: inline-block;
+            box-sizing: border-box;
+            border: 1px solid #333; /* Добавляем границу к столбцам */
+            margin-right: 0; /* Убираем правый отступ */
+            position: relative; /* Добавляем позиционирование для псевдоэлемента */
+        }
+
+        .chart-bar::after {
+            content: attr(data-value); /* Отображаем значение атрибута data-value */
+            position: absolute;
+            bottom: -20px; /* Располагаем текст под столбцами */
+            left: 50%; /* Центрируем текст */
+            transform: translateX(-50%); /* Центрируем текст относительно столбца */
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="chart-container">
+        {% for value in data %}
+            <div class="chart-bar" style="height: {{ value|add:2 }}%;" data-value="{{ value }}"></div>
+        {% endfor %}
+    </div>
+</body>
+</html>
